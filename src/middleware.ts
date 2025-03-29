@@ -1,6 +1,10 @@
 import { clerkMiddleware, createRouteMatcher } from "@clerk/nextjs/server";
 
-const isPublicRoute = createRouteMatcher(["/sign-in(.*)", "/sign-up(.*)"]);
+const isPublicRoute = createRouteMatcher([
+  "/sign-in(.*)",
+  "/sign-up(.*)",
+  "/api/clerk/webhook(.*)",
+]);
 
 // The clerkMiddleware function is a middleware that protects your application routes.
 // It checks if the user is authenticated and redirects them to the sign-in page if they are not.
