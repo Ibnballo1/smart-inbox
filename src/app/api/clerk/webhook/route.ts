@@ -1,10 +1,12 @@
 // /api/clerk/webhook
 
+// This is where the user registered on cleak from our
+// website will be receive so as to have on our Database.
+
 import { db } from "@/server/db";
 
 export const POST = async (req: Request) => {
   const { data } = await req.json();
-  console.log("clerk webhook received", data);
   const emailAddress = data.email_addresses[0].email_address;
   const firstName = data.first_name;
   const lastName = data.last_name;
@@ -20,7 +22,6 @@ export const POST = async (req: Request) => {
       imageUrl: imageUrl,
     },
   });
-  console.log("User created");
 
   return new Response("Webhook received", { status: 200 });
 };
