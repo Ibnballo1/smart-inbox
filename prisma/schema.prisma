@@ -2,28 +2,29 @@
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
 generator client {
-    provider = "prisma-client-js"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-    provider = "postgresql"
-    url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
-    id String @id @default(cuid())
-    emailAddress String @unique
-    firstName String
-    lastName String
-    imageUrl String?
-    accounts Account[]
+  id           String    @id @default(cuid())
+  emailAddress String    @unique
+  firstName    String
+  lastName     String
+  imageUrl     String?
+  accounts     Account[]
 }
 
 model Account {
-    id String @id @default(cuid())
-    userId String
-    accessToken String @unique
-    emailAddress String
-    name String
-    user User @relation(fields: [userId], references: [id])
+  id             String  @id @default(cuid())
+  userId         String
+  accessToken    String  @unique
+  emailAddress   String
+  name           String
+  nextDeltaToken String?
+  user           User    @relation(fields: [userId], references: [id])
 }

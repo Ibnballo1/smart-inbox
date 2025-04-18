@@ -4,6 +4,7 @@ const isPublicRoute = createRouteMatcher([
   "/sign-in(.*)",
   "/sign-up(.*)",
   "/api/clerk/webhook(.*)",
+  "/api/initial-sync(.*)",
 ]);
 
 // The clerkMiddleware function is a middleware that protects your application routes.

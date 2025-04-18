@@ -15,10 +15,10 @@ export const getAurinkoAuthUrl = async (
   const params = new URLSearchParams({
     clientId: process.env.AURINKO_CLIENT_ID as string,
     serviceType,
-    scope: "Mail.ReadWrite Mail.Send Mail.Read Mail.Drafts Mail.All",
+    scopes: "Mail.ReadWrite Mail.Send Mail.Read Mail.Drafts Mail.All",
     responseType: "code",
-    returnUrl: `${process.env.NEXT_PUBLIC_URL}/api/aurinko/callback`, // this is the url that aurinko will redirect
-    // to after the user has given permission along with the code
+    returnUrl: `${process.env.NEXT_PUBLIC_URL}/api/aurinko/callback`, // this is the url that aurinko will redirect to
+    // after the user has given permission along with the code
     // to exchange for the access token
   });
 
