@@ -1,5 +1,7 @@
 import { Account } from "@/lib/account";
+import { syncEmailsToDatabase } from "@/lib/sync-to-db";
 import { db } from "@/server/db";
+import type { EmailMessage } from "@/type";
 import { NextResponse, NextRequest } from "next/server";
 import { use } from "react";
 
@@ -41,20 +43,23 @@ export const POST = async (req: NextRequest) => {
 
   const { emails, deltaToken } = response;
   // store the delta token in the database for future incremental syncs
-  console.log("emails", emails);
-  // await db.account.update({
-  //   where: {
-  //     id: accountId
-  //   },
-  //   data: {
-  //     nextDeltaToken: deltaToken,
-  //   },
-  // });
+  // console.log("emails", emails);
+  await db.account.update({
+    where: {
+      id: accountId,
+    },
+    data: {
+      nextDeltaToken: deltaToken,
+    },
+  });
 
-  // await syncEmailsToDatabase(emails);
+  await syncEmailsToDatabase(emails, accountId);
   console.log("sync completed", deltaToken);
   return NextResponse.json({ success: true, deltaToken }, { status: 200 });
 };
 function performInitialSync(accessToken: string) {
   throw new Error("Function not implemented.");
 }
+// function syncEmailsToDatabase(emails: EmailMessage[], accountId?: any) {
+//   throw "Function not implemented.";
+// }
